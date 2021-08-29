@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS - Typewriter</title>
+</head>
+<body>
+    <div class="text">
+      <p></p>
+    </div>
+</body>
+
+<script> 
+ 
+
+let typewriter = (text, fpsRate) => {
+  let fps, fpsInterval, startTime, now, then, elapsed, counter = 0;
+  // const textString = 'The Blah text to write here and some more text blah'; //22
+  const textString = text;
+  const textLength = textString.length - 1;
+  const textP = document.querySelector('.text').children[0];
+
+  throttle(fpsRate)
+  function throttle(fps) {
+    fpsInterval = 1000 / fps; //200
+    then = Date.now();
+    startTime = then;
+    loop();
+  }
+
+  function loop () {
+    if ( counter > textLength) return;
+  
+    window.requestAnimationFrame(loop)  
+    now = Date.now();
+    elapsed = now - then;
+
+    if (elapsed > fpsInterval) {
+   
+      then = now - (elapsed % fpsInterval);
+
+      let i = counter;
+      textP.textContent += textString[i];
+      counter = ++counter;
+
+    }
+ }
+}
+
+typewriter('The Blah text to write here and some more text blah', 2);
+ 
+
+</script>
+</html>
